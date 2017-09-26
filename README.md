@@ -1,6 +1,6 @@
-# Project 3 - *twitter-cliente*
+# Project 3 - *twitter-client*
 
-**twitter-clientp** is a basic twitter app to read and compose tweets from the [Twitter API](https://apps.twitter.com/).
+**twitter-client** is a basic twitter app to read and compose tweets from the [Twitter API](https://apps.twitter.com/).
 
 Time spent: **0** hours spent in total
 
