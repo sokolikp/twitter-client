@@ -19,6 +19,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.delegate = self
         tableView.dataSource = self
+    tableView.estimatedRowHeight = 120
         
         // refresh control
         let refreshControl = UIRefreshControl()
@@ -36,7 +37,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,6 +48,19 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         cell.tweet = tweets[indexPath.row]
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "TweetDetailSegue" {
+            let detailsViewController = segue.destination as! DetailViewController
+            let cell = sender as! TweetCell
+            let indexPath = tableView.indexPath(for: cell)
+            detailsViewController.tweet = tweets[indexPath!.row]
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     @objc func refreshControlAction(_ refreshControl: UIRefreshControl) {
