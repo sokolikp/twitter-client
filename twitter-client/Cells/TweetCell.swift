@@ -19,7 +19,7 @@ class TweetCell: UITableViewCell {
     var tweet: Tweet! {
         didSet {
             nameLabel.text = tweet.user?.name
-            handleLabel.text = tweet.user?.handle
+            handleLabel.text = "@\(tweet.user?.handle ?? "")"
             tweetTextLabel.text = tweet.text
             timestampLabel.text = tweet.timestamp?.timeAgo()
             

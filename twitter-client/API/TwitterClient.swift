@@ -76,4 +76,72 @@ class TwitterClient: BDBOAuth1SessionManager {
             failure(error)
         })
     }
+    
+    func postTweet(message: String, replyId: Int?, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        var params: [String: Any] = ["status": message]
+        if replyId != nil {
+            params["in_reply_to_status_id"] = String(describing: replyId)
+        }
+        self.post("1.1/statuses/update.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let tweet = Tweet(dictionary: response as! NSDictionary)
+            print("tweeted \(tweet.text!)")
+            Tweet.prependToTweets(tweet: tweet)
+            success(tweet)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print("Failed to tweet")
+            failure(error)
+        })
+    }
+    
+    func retweet(id: Int, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+        let stringId: String = String(id)
+        self.post("1.1/statuses/retweet/\(stringId).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            let tweet = Tweet(dictionary: response as! NSDictionary)
+            print("tweet retweeted")
+            // TODO: increment retweet count
+            Tweet.prependToTweets(tweet: tweet)
+            success(tweet)
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print("Failed to retweet")
+            failure(error)
+        })
+    }
+    
+    func unretweet(id: Int, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        let stringId: String = String(id)
+        self.post("1.1/statuses/unretweet/\(stringId).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            print("unretweeted")
+            // TODO: decrement retweet count
+            success()
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print("Failed to delete retweet")
+            failure(error)
+        })
+    }
+    
+    func favorite(id: Int, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        let stringId: String = String(id)
+        let params: NSDictionary = ["id": stringId]
+        self.post("1.1/favorites/create.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            print("tweet liked!")
+            // TODO: update like count
+            success()
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print("Failed to like")
+            failure(error)
+        })
+    }
+    
+    func unfavorite(id: Int, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        let stringId: String = String(id)
+        let params: NSDictionary = ["id": stringId]
+        self.post("1.1/favorites/destroy.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            print("tweet unliked!")
+            // TODO: update like count
+            success()
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print("Failed to unlike")
+            failure(error)
+        })
+    }
 }
