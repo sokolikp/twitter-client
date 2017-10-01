@@ -95,6 +95,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     func retweet(id: Int, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
         let stringId: String = String(id)
+        print("1.1/statuses/retweet/\(stringId).json")
         self.post("1.1/statuses/retweet/\(stringId).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let tweet = Tweet(dictionary: response as! NSDictionary)
             print("tweet retweeted")
