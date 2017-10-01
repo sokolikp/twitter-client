@@ -19,7 +19,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.delegate = self
         tableView.dataSource = self
-    tableView.estimatedRowHeight = 120
+        tableView.estimatedRowHeight = 120
+        let twitterBlue = UIColor(displayP3Red: CGFloat(0)/255, green: CGFloat(172)/255, blue: CGFloat(237)/255, alpha: 1.0)
+        self.navigationController?.navigationBar.barTintColor = twitterBlue
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         
         // refresh control
         let refreshControl = UIRefreshControl()
