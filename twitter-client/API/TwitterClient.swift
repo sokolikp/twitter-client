@@ -25,7 +25,6 @@ class TwitterClient: BDBOAuth1SessionManager {
         
         requestSerializer.removeAccessToken()
         fetchRequestToken(withPath: "oauth/request_token", method: "GET", callbackURL: URL(string: "cptwitterdemo://oauth"), scope: nil, success: { (requestToken: BDBOAuth1Credential?) in
-            print("Got the request token!", requestToken!.token)
             let authURL = URL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken!.token as String)")
             UIApplication.shared.open(authURL!)
         }) { (error: Error!) in
@@ -41,9 +40,19 @@ class TwitterClient: BDBOAuth1SessionManager {
         print("logged out")
     }
     
-    func homeTimeline(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-        self.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask?, response: Any?) in
+    // loadMore is for pagination
+    func homeTimeline(loadMore: Bool, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+        var params: [String: Any]?
+        if loadMore {
+            params = ["since_id": Tweet.tweets?.first?.id as Any]
+        }
+        self.get("1.1/statuses/home_timeline.json", parameters: params ?? nil, progress: nil, success: { (task: URLSessionDataTask?, response: Any?) in
             let tweets = Tweet.tweetsWithArray(array: response as! [NSDictionary])
+            if !loadMore {
+                Tweet.setTweets(array: tweets)
+            } else {
+                Tweet.appendTweets(array: tweets)
+            }
             success(tweets)
         }) { (task: URLSessionDataTask?, error: Error) in
             failure(error)
@@ -52,7 +61,6 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     func openUrl(url: URL) {
         fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: BDBOAuth1Credential(queryString: url.query), success: { (accessToken: BDBOAuth1Credential?) in
-            print("got the token")
             self.requestSerializer.saveAccessToken(accessToken)
             self.currentAccount(success: { (user: User) in
                 User.currentUser = user
@@ -69,10 +77,8 @@ class TwitterClient: BDBOAuth1SessionManager {
     func currentAccount(success: @escaping (User) -> (), failure: @escaping (Error) -> ()) {
         self.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let user = User(dictionary: response as! NSDictionary)
-            print("user \(user.name!)")
             success(user)
         }, failure: { (task: URLSessionDataTask?, error: Error) in
-            print("Failed to verify")
             failure(error)
         })
     }
@@ -87,7 +93,6 @@ class TwitterClient: BDBOAuth1SessionManager {
             Tweet.prependToTweets(tweet: tweet)
             success(tweet)
         }, failure: { (task: URLSessionDataTask?, error: Error) in
-            print("Failed to tweet")
             failure(error)
         })
     }
@@ -98,7 +103,6 @@ class TwitterClient: BDBOAuth1SessionManager {
             Tweet.removeTweet(id: id)
             success()
         }, failure: { (task: URLSessionDataTask?, error: Error) in
-            print("Failed to delete tweet")
             failure(error)
         })
     }

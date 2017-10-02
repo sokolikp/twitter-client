@@ -41,7 +41,6 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func onCLickRetweet(_ sender: Any) {
-        print("retweet clicked: \(tweet.retweeted)")
         if (!tweet.retweeted) {
             TwitterClient.sharedInstance.retweet(id: tweet.id!, success: { (originalTweet: Tweet, retweet: Tweet) in
                 self.tweet = originalTweet
@@ -62,7 +61,6 @@ class DetailViewController: UIViewController {
     
     @IBAction func onClickLike(_ sender: Any) {
         
-        print("like clicked: \(tweet.liked)")
         if (!tweet.liked) {
             TwitterClient.sharedInstance.favorite(id: tweet.id!, success: { (tweet: Tweet) in
                 self.tweet = tweet
@@ -82,7 +80,6 @@ class DetailViewController: UIViewController {
     
     @IBAction func onClickDelete(_ sender: Any) {
         TwitterClient.sharedInstance.deleteTweet(id: tweet.id!, success: {
-            print("deleted")
             self.navigationController?.popViewController(animated: true)
         }) { (error: Error) in
             print("Failure: \(error.localizedDescription)")

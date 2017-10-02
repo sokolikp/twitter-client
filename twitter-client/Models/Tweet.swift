@@ -79,13 +79,24 @@ class Tweet: NSObject {
     
     class func tweetsWithArray(array: [NSDictionary]) -> [Tweet] {
         // reset internal tweets array
-        _tweets = [Tweet]()
+        var tweetArray: [Tweet] = [Tweet]()
         
         for dictionary in array {
-            _tweets?.append(Tweet(dictionary: dictionary))
+            tweetArray.append(Tweet(dictionary: dictionary))
         }
         
-        return _tweets!
+        return tweetArray
+    }
+    
+    class func setTweets(array: [Tweet]) -> () {
+        // reset internal tweets array
+        _tweets = [Tweet]()
+        
+        _tweets = array
+    }
+    
+    class func appendTweets(array: [Tweet]) -> () {
+        _tweets! += array
     }
     
     class func prependToTweets(tweet: Tweet) -> () {

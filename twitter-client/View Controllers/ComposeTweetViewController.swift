@@ -12,6 +12,7 @@ class ComposeTweetViewController: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var tweetTextView: UITextView!
+    @IBOutlet weak var charLimitLabel: UILabel!
     
     var respondToTweet: Tweet?
     var pristine: Bool!
@@ -25,6 +26,7 @@ class ComposeTweetViewController: UIViewController, UITextViewDelegate {
         profileImageView.clipsToBounds  = true
         tweetTextView.delegate = self
         profileImageView.setImageWith((User.currentUser?.profileUrl)!)
+        charLimitLabel.text = "0/\(MAX_CHARS)"
         
         let twitterBlue = UIColor(displayP3Red: CGFloat(0)/255, green: CGFloat(172)/255, blue: CGFloat(237)/255, alpha: 1.0)
         self.navigationController?.navigationBar.barTintColor = twitterBlue
@@ -48,7 +50,6 @@ class ComposeTweetViewController: UIViewController, UITextViewDelegate {
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        print("begin")
         if pristine {
             textView.text = nil
             textView.textColor = UIColor.black
@@ -62,6 +63,9 @@ class ComposeTweetViewController: UIViewController, UITextViewDelegate {
             pristine = false
             textView.textColor = UIColor.black
         }
+        
+        let charCount = textView.text.characters.count
+        self.charLimitLabel.text = "\(charCount)/\(MAX_CHARS)"
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -77,8 +81,6 @@ class ComposeTweetViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func onClickTweet(_ sender: Any) {
-        print(pristine)
-        print("Clicked")
         // don't tweet placeholder message 
         if pristine {
             return
@@ -86,7 +88,6 @@ class ComposeTweetViewController: UIViewController, UITextViewDelegate {
         
         let replyId = respondToTweet?.id ?? nil
         TwitterClient.sharedInstance.postTweet(message: tweetTextView.text, replyId: replyId, success: { (tweet: Tweet) in
-            print("I tweeted! Holy shit")
             self.tweetTextView.resignFirstResponder()
             self.dismiss(animated: true, completion: nil)
         }) { (error: Error) in
