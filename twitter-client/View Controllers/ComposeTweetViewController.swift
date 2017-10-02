@@ -37,7 +37,7 @@ class ComposeTweetViewController: UIViewController, UITextViewDelegate {
         if respondToTweet != nil && respondToTweet!.user != nil {
             pristine = false
             tweetTextView.textColor = UIColor.black
-            tweetTextView.text = "@\(respondToTweet!.user!.name!): "
+            tweetTextView.text = "@\(respondToTweet!.user!.handle!): "
             tweetTextView.becomeFirstResponder()
         } else {
             setPristine()

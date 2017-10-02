@@ -44,7 +44,7 @@ class TwitterClient: BDBOAuth1SessionManager {
     func homeTimeline(loadMore: Bool, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
         var params: [String: Any]?
         if loadMore {
-            params = ["since_id": Tweet.tweets?.first?.id as Any]
+            params = ["max_id": Tweet.tweets?.last?.id as Any]
         }
         self.get("1.1/statuses/home_timeline.json", parameters: params ?? nil, progress: nil, success: { (task: URLSessionDataTask?, response: Any?) in
             let tweets = Tweet.tweetsWithArray(array: response as! [NSDictionary])
