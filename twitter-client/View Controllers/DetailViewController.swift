@@ -22,6 +22,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var tweetView: UIView!
+    @IBOutlet weak var verifiedImageView: UIImageView!
+    @IBOutlet weak var deleteButton: UIButton!
     
     var tweet: Tweet!
     
@@ -78,6 +80,15 @@ class DetailViewController: UIViewController {
         }
     }
     
+    @IBAction func onClickDelete(_ sender: Any) {
+        TwitterClient.sharedInstance.deleteTweet(id: tweet.id!, success: {
+            print("deleted")
+            self.navigationController?.popViewController(animated: true)
+        }) { (error: Error) in
+            print("Failure: \(error.localizedDescription)")
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ReplyToTweetSegue" {
             let navigationController = segue.destination as! UINavigationController
@@ -95,6 +106,10 @@ class DetailViewController: UIViewController {
         locationLabel.text = tweet.place ?? ""
         retweetsCountLabel.text = String(tweet.retweetCount)
         likesCountLabel.text = String(tweet.favoritesCount)
+        verifiedImageView.isHidden = !(tweet.user?.verified)!
+        if (tweet.user?.id != User.currentUser?.id) {
+            deleteButton.isHidden = true
+        }
         
         // set images
         profileImageView.setImageWith((tweet.user?.profileUrl)!)

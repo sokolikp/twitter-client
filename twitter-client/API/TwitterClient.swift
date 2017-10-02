@@ -92,6 +92,17 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    func deleteTweet(id: Int, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+        let stringId: String = String(id)
+        self.post("1.1/statuses/destroy/\(stringId).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
+            Tweet.removeTweet(id: id)
+            success()
+        }, failure: { (task: URLSessionDataTask?, error: Error) in
+            print("Failed to delete tweet")
+            failure(error)
+        })
+    }
+    
     func retweet(id: Int, success: @escaping (Tweet, Tweet) -> (), failure: @escaping (Error) -> ()) {
         let stringId: String = String(id)
         self.post("1.1/statuses/retweet/\(stringId).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in

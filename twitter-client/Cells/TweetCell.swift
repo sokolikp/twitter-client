@@ -15,6 +15,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var timestampLabel: UILabel!
+    @IBOutlet weak var verifiedImageView: UIImageView!
     
     var tweet: Tweet! {
         didSet {
@@ -23,6 +24,7 @@ class TweetCell: UITableViewCell {
             tweetTextLabel.text = tweet.text
             timestampLabel.text = tweet.timestamp?.timeAgo()
             
+            verifiedImageView.isHidden = !(tweet.user?.verified)!
             if let profileUrl = tweet.user?.profileUrl {
                 profileImageView.setImageWith(profileUrl)
             }

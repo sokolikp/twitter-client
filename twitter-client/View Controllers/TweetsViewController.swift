@@ -13,6 +13,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     
     var tweets: [Tweet]!
+    var initialLoad: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +34,17 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // fetch tweets
         TwitterClient.sharedInstance.homeTimeline(success: { (tweets: [Tweet]) in
             self.tweets = tweets
+            self.initialLoad = true
             self.tableView.reloadData()
         }) { (error: Error) in
-            print("Error getting timeline")
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // only reset tweets collection if view has already been fetched initally
+        if (initialLoad) {
+            tweets = Tweet.tweets
+            tableView.reloadData()
         }
     }
 

@@ -18,6 +18,7 @@ class User: NSObject {
     var profileUrl: URL?
     var tagline: String?
     var dictionary: NSDictionary
+    var verified: Bool = false
     
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
@@ -30,6 +31,7 @@ class User: NSObject {
             profileUrl = URL(string: profileUrlString)
         }
         tagline = dictionary["description"] as? String
+        verified = (dictionary["verified"] as? Bool) ?? false
     }
     
     static let userDidLogoutNotification = "UserDidLogout"
