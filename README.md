@@ -18,21 +18,23 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [ ] When composing, you should have a countdown in the upper right for the tweet limit.
+- [X] When composing, you should have a countdown in the upper right for the tweet limit.
 - [X] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network.
 - [X] Retweeting and favoriting should increment the retweet and favorite count.
 - [X] User should be able to unretweet and unfavorite and should decrement the retweet and favorite count.
 - [X] Replies should be prefixed with the username and the reply_id should be set when posting the tweet,
-- [ ] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
+- [X] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [X] Delete your own tweets
+- [X] Show verified status for verified users
+- [X] Color indicators for liked and retweeted tweets
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. Easier ways to set up auto-layout when you want to add a new element. When I wanted to add new features, my old auto-layout constraints needed to be completely reset. Also, centering items horizontally across a fixed width would be cool (e.g. evenly space 4 items across some width).
+2. Retweets were confusing! How did you handle the retweet/unretweet actions? Especially when you retweet a retweet - the parent tweet becomes the originally retweeted status, which could be far removed from the status you retweeted from.
 
 ## Video Walkthrough
 
@@ -44,9 +46,11 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Mainly the two questions cited above. Auto-layout is difficult when you want to add a new element. I had a few issues getting oauth to work because I started with the videos from the "resources" tab, which felt very out of date. The videos from the assignments tab were much more updated and helpful. Finally, handling retweets was confusing in some instances, like retweeting a retweet.
 
 ## Acknowledgements
+
+All icons courtesy of [iconmonstr](https://iconmonstr.com/)
 
 ## License
 
