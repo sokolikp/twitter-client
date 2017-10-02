@@ -40,8 +40,22 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+OAuth login and general functionality:
+<div>
+    <img src='http://image.ibb.co/b88WJw/twitter_client_4.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+</div>
+<br>
 
+Infinite scroll and table layout:
+<div>
+    <img src='http://image.ibb.co/crO1kb/twitter_client_2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+</div>
+<br>
+
+Posting, replying, and deleting:
+<div>
+    <img src='http://image.ibb.co/fkkp5b/twitter_client_7.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+</div>
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
