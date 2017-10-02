@@ -84,7 +84,6 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
         self.post("1.1/statuses/update.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
             let tweet = Tweet(dictionary: response as! NSDictionary)
-            print("tweeted \(tweet.text!)")
             Tweet.prependToTweets(tweet: tweet)
             success(tweet)
         }, failure: { (task: URLSessionDataTask?, error: Error) in
@@ -93,53 +92,56 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
-    func retweet(id: Int, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
+    func retweet(id: Int, success: @escaping (Tweet, Tweet) -> (), failure: @escaping (Error) -> ()) {
         let stringId: String = String(id)
-        print("1.1/statuses/retweet/\(stringId).json")
         self.post("1.1/statuses/retweet/\(stringId).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-            let tweet = Tweet(dictionary: response as! NSDictionary)
-            print("tweet retweeted")
-            // TODO: increment retweet count
-            Tweet.prependToTweets(tweet: tweet)
-            success(tweet)
+            let dictionary = response as! NSDictionary
+            let retweet = Tweet(dictionary: dictionary)
+            let originalTweet = Tweet.getTweet(id: (retweet.retweet?.id)!)
+            Tweet.updateRetweetData(id: (originalTweet?.id!)!, retweeted: true)
+            Tweet.prependToTweets(tweet: retweet)
+            success(originalTweet!, retweet)
         }, failure: { (task: URLSessionDataTask?, error: Error) in
             print("Failed to retweet")
             failure(error)
         })
     }
     
-    func unretweet(id: Int, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+    func unretweet(id: Int, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
         let stringId: String = String(id)
         self.post("1.1/statuses/unretweet/\(stringId).json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-            print("unretweeted")
-            // TODO: decrement retweet count
-            success()
+            let tweet = Tweet(dictionary: response as! NSDictionary)
+            Tweet.removeTweet(byRetweetId: tweet.id!)
+            tweet.retweeted = false // TWITTER BUG? Retweet response data is not consistent
+            tweet.retweetCount -= 1
+            Tweet.updateTweet(tweet: tweet)
+            success(tweet)
         }, failure: { (task: URLSessionDataTask?, error: Error) in
             print("Failed to delete retweet")
             failure(error)
         })
     }
     
-    func favorite(id: Int, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+    func favorite(id: Int, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
         let stringId: String = String(id)
         let params: NSDictionary = ["id": stringId]
         self.post("1.1/favorites/create.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-            print("tweet liked!")
-            // TODO: update like count
-            success()
+            let tweet = Tweet(dictionary: response as! NSDictionary)
+            Tweet.updateTweet(tweet: tweet)
+            success(tweet)
         }, failure: { (task: URLSessionDataTask?, error: Error) in
             print("Failed to like")
             failure(error)
         })
     }
     
-    func unfavorite(id: Int, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
+    func unfavorite(id: Int, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
         let stringId: String = String(id)
         let params: NSDictionary = ["id": stringId]
         self.post("1.1/favorites/destroy.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask, response: Any?) in
-            print("tweet unliked!")
-            // TODO: update like count
-            success()
+            let tweet = Tweet(dictionary: response as! NSDictionary)
+            Tweet.updateTweet(tweet: tweet)
+            success(tweet)
         }, failure: { (task: URLSessionDataTask?, error: Error) in
             print("Failed to unlike")
             failure(error)

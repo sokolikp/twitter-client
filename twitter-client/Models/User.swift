@@ -12,6 +12,7 @@ var _currentUser: User?
 let _currentUserKey = "CurrentUserKey"
 
 class User: NSObject {
+    var id: Int?
     var name: String?
     var handle: String?
     var profileUrl: URL?
@@ -21,6 +22,7 @@ class User: NSObject {
     init(dictionary: NSDictionary) {
         self.dictionary = dictionary
         
+        id = dictionary["id"] as? Int
         name = dictionary["name"] as? String
         handle = dictionary["screen_name"] as? String
         let profileUrlString = dictionary["profile_image_url"] as? String

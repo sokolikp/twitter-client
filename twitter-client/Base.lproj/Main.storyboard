@@ -268,7 +268,6 @@
                                         </constraints>
                                         <state key="normal" title="Reply" image="reply-gray"/>
                                         <connections>
-                                            <action selector="onClickReply:" destination="0zC-hY-vjh" eventType="touchUpInside" id="PX8-9L-fo1"/>
                                             <segue destination="mxN-CY-hSc" kind="presentation" identifier="ReplyToTweetSegue" id="jgY-5D-hck"/>
                                         </connections>
                                     </button>
@@ -359,6 +358,7 @@
                         <outlet property="retweetsCountLabel" destination="8gd-3E-X3P" id="85H-GQ-C6K"/>
                         <outlet property="timestampLabel" destination="5us-vK-uos" id="RZI-ZF-wXP"/>
                         <outlet property="tweetLabel" destination="MfW-v3-oUS" id="Yw3-Lx-cp4"/>
+                        <outlet property="tweetView" destination="WRr-Gl-9rO" id="fyv-LH-yVN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hNN-he-Att" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -482,6 +482,6 @@
         <image name="retweet-gray" width="240" height="240"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="IQP-Bl-sJi"/>
+        <segue reference="jgY-5D-hck"/>
     </inferredMetricsTieBreakers>
 </document>

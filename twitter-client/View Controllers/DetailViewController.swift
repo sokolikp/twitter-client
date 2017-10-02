@@ -21,6 +21,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var replyButton: UIButton!
     @IBOutlet weak var retweetButton: UIButton!
     @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var tweetView: UIView!
     
     var tweet: Tweet!
     
@@ -30,49 +31,85 @@ class DetailViewController: UIViewController {
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
         profileImageView.clipsToBounds  = true
 
-        reloadTweetData()
+        reloadView()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func onClickReply(_ sender: Any) {
-        // modally display tweet input
-    }
-    
     @IBAction func onCLickRetweet(_ sender: Any) {
-        TwitterClient.sharedInstance.retweet(id: tweet.id!, success: { (tweet: Tweet) in
-            print("success!")
-            // todo: segue? Change icon color, update labels
-        }) { (error: Error) in
-            print("Failure: \(error.localizedDescription)")
+        print("retweet clicked: \(tweet.retweeted)")
+        if (!tweet.retweeted) {
+            TwitterClient.sharedInstance.retweet(id: tweet.id!, success: { (originalTweet: Tweet, retweet: Tweet) in
+                self.tweet = originalTweet
+                self.reloadView()
+            }) { (error: Error) in
+                print("Failure: \(error.localizedDescription)")
+            }
+        } else {
+            TwitterClient.sharedInstance.unretweet(id: tweet.id!, success: { (tweet: Tweet) in
+                self.tweet = tweet
+                self.reloadView()
+            }) { (error: Error) in
+                print("Failure: \(error.localizedDescription)")
+            }
         }
+        
     }
     
     @IBAction func onClickLike(_ sender: Any) {
-        TwitterClient.sharedInstance.favorite(id: tweet.id!, success: {
-            print("liked")
-            //TODO: changed icon color, update labels
-        }) { (error: Error) in
-            print("Failure: \(error.localizedDescription)")
+        
+        print("like clicked: \(tweet.liked)")
+        if (!tweet.liked) {
+            TwitterClient.sharedInstance.favorite(id: tweet.id!, success: { (tweet: Tweet) in
+                self.tweet = tweet
+                self.reloadView()
+            }) { (error: Error) in
+                print("Failure: \(error.localizedDescription)")
+            }
+        } else {
+            TwitterClient.sharedInstance.unfavorite(id: tweet.id!, success: { (tweet: Tweet) in
+                self.tweet = tweet
+                self.reloadView()
+            }) { (error: Error) in
+                print("Failure: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ReplyToTweetSegue" {
+            let navigationController = segue.destination as! UINavigationController
+            let composeViewController = navigationController.topViewController as! ComposeTweetViewController
+            composeViewController.respondToTweet = tweet
         }
     }
     
     // initialize outlet data
-    func reloadTweetData () {
+    func reloadView () {
+        // set labels
         nameLabel.text = tweet.user?.name
         handleLabel.text = "@\(tweet.user?.handle ?? "")"
         tweetLabel.text = tweet.text
-        profileImageView.setImageWith((tweet.user?.profileUrl)!)
-        
         locationLabel.text = tweet.place ?? ""
+        retweetsCountLabel.text = String(tweet.retweetCount)
+        likesCountLabel.text = String(tweet.favoritesCount)
+        
+        // set images
+        profileImageView.setImageWith((tweet.user?.profileUrl)!)
+        setButtonImages()
+        
+        // set timestamp
         let formatter = DateFormatter()
         formatter.dateFormat = "MM/dd/yy, h:mm a"
         let timestampText = formatter.string(from: tweet.timestamp! as Date)
         timestampLabel.text = timestampText
-        retweetsCountLabel.text = String(tweet.retweetCount)
-        likesCountLabel.text = String(tweet.favoritesCount)
+    }
+    
+    func setButtonImages () {
+        retweetButton.setImage(tweet.getRetweetImage(), for: UIControlState.normal)
+        likeButton.setImage(tweet.getLikeImage(), for: UIControlState.normal)
     }
 
 }
