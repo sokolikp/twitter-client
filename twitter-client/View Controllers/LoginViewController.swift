@@ -10,21 +10,22 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var loginButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        self.navigationController?.isNavigationBarHidden = true
+        loginButton.layer.cornerRadius = 5
+        loginButton.layer.borderWidth = 0.5
+        loginButton.layer.borderColor = UIColor.green.cgColor
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     @IBAction func onLogin(_ sender: Any) {
         TwitterClient.sharedInstance.login(success: { (user: User?) in
             if (user != nil) {
-                self.performSegue(withIdentifier: "loginSegue", sender: self)
+                self.performSegue(withIdentifier: "LoginSegue", sender: self)
             }
         }, failure: { (error: Error) in
             print("Error: \(error.localizedDescription)")

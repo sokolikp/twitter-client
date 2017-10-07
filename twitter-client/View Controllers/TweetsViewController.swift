@@ -28,6 +28,9 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.navigationBar.tintColor = UIColor.white
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         
+        let cellNib = UINib(nibName: "TweetCell", bundle: nil)
+        tableView.register(cellNib, forCellReuseIdentifier: "TweetCell")
+        
         initInfiniteScroll()
         
         // refresh control
