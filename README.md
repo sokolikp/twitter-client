@@ -1,70 +1,55 @@
-# Project 3 - *twitter-client*
+# Project 4 - *Twitter Redux*
 
-**twitter-client** is a basic twitter app to read and compose tweets from the [Twitter API](https://apps.twitter.com/).
-
-Time spent: **27** hours spent in total
+Time spent: **10** hours spent in total
 
 ## User Stories
 
 The following **required** functionality is completed:
 
-- [X] User can sign in using OAuth login flow.
-- [X] User can view last 20 tweets from their home timeline.
-- [X] The current signed in user will be persisted across restarts.
-- [X] In the home timeline, user can view tweet with the user profile picture, username, tweet text, and timestamp.  In other words, design the custom cell with the proper Auto Layout settings.  You will also need to augment the model classes.
-- [X] User can pull to refresh.
-- [X] User can compose a new tweet by tapping on a compose button.
-- [X] User can tap on a tweet to view it, with controls to retweet, favorite, and reply.
+- [X] Hamburger menu
+   - [X] Dragging anywhere in the view should reveal the menu.
+   - [X] The menu should include links to your profile, the home timeline, and the mentions view.
+   - [X] The menu can look similar to the example or feel free to take liberty with the UI.
+- [X] Profile page
+   - [X] Contains the user header view
+   - [X] Contains a section with the users basic stats: # tweets, # following, # followers
+- [X] Home Timeline
+   - [X] Tapping on a user image should bring up that user's profile page
 
 The following **optional** features are implemented:
 
-- [X] When composing, you should have a countdown in the upper right for the tweet limit.
-- [X] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network.
-- [X] Retweeting and favoriting should increment the retweet and favorite count.
-- [X] User should be able to unretweet and unfavorite and should decrement the retweet and favorite count.
-- [X] Replies should be prefixed with the username and the reply_id should be set when posting the tweet,
-- [X] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
+- [ ] Profile Page
+   - [ ] Implement the paging view for the user description.
+   - [ ] As the paging view moves, increase the opacity of the background screen. See the actual Twitter app for this effect
+   - [ ] Pulling down the profile page should blur and resize the header image.
+- [ ] Account switching
+   - [ ] Long press on tab bar to bring up Account view with animation
+   - [ ] Tap account to switch to
+   - [ ] Include a plus button to Add an Account
+   - [ ] Swipe to delete an account
+
 
 The following **additional** features are implemented:
 
-- [X] Delete your own tweets
-- [X] Show verified status for verified users
-- [X] Color indicators for liked and retweeted tweets
+- [ ] List anything else that you can get done to improve the app functionality!
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. Easier ways to set up auto-layout when you want to add a new element. When I wanted to add new features, my old auto-layout constraints needed to be completely reset. Also, centering items horizontally across a fixed width would be cool (e.g. evenly space 4 items across some width).
-2. Retweets were confusing! How did you handle the retweet/unretweet actions? Especially when you retweet a retweet - the parent tweet becomes the originally retweeted status, which could be far removed from the status you retweeted from.
+  1.
+  2.
+
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-OAuth login and general functionality:
-<div>
-    <img src='http://image.ibb.co/b88WJw/twitter_client_4.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-</div>
-<br>
+<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-Infinite scroll and table layout:
-<div>
-    <img src='http://image.ibb.co/crO1kb/twitter_client_2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-</div>
-<br>
-
-Posting, replying, and deleting:
-<div>
-    <img src='http://image.ibb.co/fkkp5b/twitter_client_7.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-</div>
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Mainly the two questions cited above. Auto-layout is difficult when you want to add a new element. I had a few issues getting oauth to work because I started with the videos from the "resources" tab, which felt very out of date. The videos from the assignments tab were much more updated and helpful. Finally, handling retweets was confusing in some instances, like retweeting a retweet.
-
-## Acknowledgements
-
-All icons courtesy of [iconmonstr](https://iconmonstr.com/)
+Describe any challenges encountered while building the app.
 
 ## License
 
