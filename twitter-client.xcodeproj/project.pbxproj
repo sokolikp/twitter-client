@@ -14,6 +14,7 @@
 		376CF3771F79E9A9008FFA4D /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376CF3761F79E9A9008FFA4D /* TwitterClient.swift */; };
 		376CF37A1F7B500E008FFA4D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376CF3791F7B500E008FFA4D /* User.swift */; };
 		376CF37C1F7B501B008FFA4D /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376CF37B1F7B501B008FFA4D /* Tweet.swift */; };
+		3778B2671F8ADB60007462E4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3778B2661F8ADB60007462E4 /* Theme.swift */; };
 		377BB3C91F86952300C2361B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377BB3C81F86952300C2361B /* MenuViewController.swift */; };
 		377BB3CB1F887B7400C2361B /* HamburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377BB3CA1F887B7400C2361B /* HamburgerViewController.swift */; };
 		377BB3CD1F88834600C2361B /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377BB3CC1F88834600C2361B /* MenuCell.swift */; };
@@ -41,6 +42,7 @@
 		376CF3761F79E9A9008FFA4D /* TwitterClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 		376CF3791F7B500E008FFA4D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		376CF37B1F7B501B008FFA4D /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		3778B2661F8ADB60007462E4 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		377BB3C81F86952300C2361B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		377BB3CA1F887B7400C2361B /* HamburgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HamburgerViewController.swift; sourceTree = "<group>"; };
 		377BB3CC1F88834600C2361B /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		376CF35F1F798F20008FFA4D /* twitter-client */ = {
 			isa = PBXGroup;
 			children = (
+				3778B2651F8ADB50007462E4 /* Themes */,
 				377EAFE61F8ACBB800ADBD68 /* Extensions */,
 				37B2F1181F81DD3100135EDC /* Views */,
 				37B2F1111F80101700135EDC /* Cells */,
@@ -123,6 +126,14 @@
 				376CF37B1F7B501B008FFA4D /* Tweet.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		3778B2651F8ADB50007462E4 /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				3778B2661F8ADB60007462E4 /* Theme.swift */,
+			);
+			path = Themes;
 			sourceTree = "<group>";
 		};
 		377EAFE61F8ACBB800ADBD68 /* Extensions */ = {
@@ -328,6 +339,7 @@
 				37B2F1131F80103100135EDC /* TweetCell.swift in Sources */,
 				377BB3C91F86952300C2361B /* MenuViewController.swift in Sources */,
 				376CF37C1F7B501B008FFA4D /* Tweet.swift in Sources */,
+				3778B2671F8ADB60007462E4 /* Theme.swift in Sources */,
 				377BB3D31F89475B00C2361B /* MentionsViewController.swift in Sources */,
 				37B2F1101F7F769200135EDC /* TweetsViewController.swift in Sources */,
 				376CF3771F79E9A9008FFA4D /* TwitterClient.swift in Sources */,

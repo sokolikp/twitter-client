@@ -13,9 +13,9 @@ class ComposeTweetViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var tweetTextView: UITextView!
     @IBOutlet weak var charLimitLabel: UILabel!
+    @IBOutlet weak var placeholderLabel: UILabel!
     
     var respondToTweet: Tweet?
-    var pristine: Bool!
     let placeholder: String = "What's on your mind?"
     let MAX_CHARS: Int = 140
     
@@ -27,42 +27,26 @@ class ComposeTweetViewController: UIViewController, UITextViewDelegate {
         profileImageView.clipsToBounds  = true
         tweetTextView.delegate = self
         profileImageView.setImageWith((User.currentUser?.profileUrl)!)
-        charLimitLabel.text = "0/\(MAX_CHARS)"
-        
-        let twitterBlue = UIColor(displayP3Red: CGFloat(0)/255, green: CGFloat(172)/255, blue: CGFloat(237)/255, alpha: 1.0)
-        self.navigationController?.navigationBar.barTintColor = twitterBlue
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        tweetTextView.becomeFirstResponder()
         
         // start in "edit mode" tweeting at a user or set some default state
         if respondToTweet != nil && respondToTweet!.user != nil {
-            pristine = false
-            tweetTextView.textColor = UIColor.black
             tweetTextView.text = "@\(respondToTweet!.user!.handle!): "
-            tweetTextView.becomeFirstResponder()
+            let charCount = tweetTextView.text.characters.count
+            charLimitLabel.text = "\(charCount)/\(MAX_CHARS)"
+            placeholderLabel.isHidden = true
         } else {
-            setPristine()
+            charLimitLabel.text = "0/\(MAX_CHARS)"
+            tweetTextView.text = nil
         }
     }
     
     // MARK: delegate handlers
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if pristine {
-            textView.text = nil
-            textView.textColor = UIColor.black
-        }
-    }
-    
     func textViewDidChange(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            pristine = true
-        } else {
-            pristine = false
-            textView.textColor = UIColor.black
-        }
-        
         let charCount = textView.text.characters.count
         self.charLimitLabel.text = "\(charCount)/\(MAX_CHARS)"
+        
+        placeholderLabel.isHidden = !textView.text.isEmpty
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -70,18 +54,11 @@ class ComposeTweetViewController: UIViewController, UITextViewDelegate {
         let numberOfChars = newText.characters.count
         return numberOfChars <= MAX_CHARS
     }
-   
-    // MARK: helper functions
-    func setPristine() {
-        pristine = true
-        tweetTextView.text = placeholder
-        tweetTextView.textColor = UIColor.lightGray
-    }
     
     // MARK: action method outlets
     @IBAction func onClickTweet(_ sender: Any) {
-        // don't tweet placeholder message 
-        if pristine {
+        // don't tweet empty message
+        if tweetTextView.text.isEmpty {
             return
         }
         

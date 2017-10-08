@@ -15,6 +15,7 @@ class User: NSObject {
     var id: Int?
     var name: String?
     var handle: String?
+    var location: String?
     var profileUrl: URL?
     var backgroundUrl: URL?
     var tagline: String?
@@ -30,6 +31,7 @@ class User: NSObject {
         id = dictionary["id"] as? Int
         name = dictionary["name"] as? String
         handle = dictionary["screen_name"] as? String
+        location = dictionary["location"] as? String
         let profileUrlString = dictionary["profile_image_url"] as? String
         if let profileUrlString = profileUrlString {
             profileUrl = URL(string: profileUrlString)

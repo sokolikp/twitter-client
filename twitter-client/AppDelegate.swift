@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        Theme.applyNavigationTheme()
+        
         if User.currentUser != nil {
             // instantiate hamburgerVC and go directly there. HamburgerVC sets up menuVC independently
             let storyboard = UIStoryboard(name: "Main", bundle: nil)

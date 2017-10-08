@@ -454,6 +454,12 @@
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="24"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's on your mind?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="est-60-e8R">
+                                <rect key="frame" x="17" y="136" width="224" height="29"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TDh-IH-Ayk">
                                 <rect key="frame" x="12" y="76" width="40" height="40"/>
                                 <constraints>
@@ -472,11 +478,13 @@
                         <constraints>
                             <constraint firstItem="gtL-yi-jQA" firstAttribute="top" secondItem="TDh-IH-Ayk" secondAttribute="bottom" constant="10" id="0lf-hT-tOh"/>
                             <constraint firstItem="TDh-IH-Ayk" firstAttribute="leading" secondItem="xfM-w1-nc4" secondAttribute="leading" constant="12" id="1Xq-KN-EKl"/>
+                            <constraint firstItem="est-60-e8R" firstAttribute="top" secondItem="gtL-yi-jQA" secondAttribute="top" constant="10" id="7Hf-w9-1UP"/>
                             <constraint firstItem="xfM-w1-nc4" firstAttribute="trailing" secondItem="gtL-yi-jQA" secondAttribute="trailing" constant="12" id="8Vj-VU-n2v"/>
                             <constraint firstItem="5JU-LF-FmN" firstAttribute="bottom" secondItem="TDh-IH-Ayk" secondAttribute="bottom" id="8hI-Kk-4wj"/>
                             <constraint firstItem="xfM-w1-nc4" firstAttribute="trailing" secondItem="5JU-LF-FmN" secondAttribute="trailing" constant="12" id="EFZ-lx-7zV"/>
                             <constraint firstItem="TDh-IH-Ayk" firstAttribute="top" secondItem="xfM-w1-nc4" secondAttribute="top" constant="12" id="Eyb-qf-FsF"/>
                             <constraint firstItem="gtL-yi-jQA" firstAttribute="leading" secondItem="xfM-w1-nc4" secondAttribute="leading" constant="12" id="ksG-i7-RuA"/>
+                            <constraint firstItem="est-60-e8R" firstAttribute="leading" secondItem="gtL-yi-jQA" secondAttribute="leading" constant="5" id="lqP-Zq-yhK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xfM-w1-nc4"/>
                     </view>
@@ -494,13 +502,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="charLimitLabel" destination="5JU-LF-FmN" id="j3s-91-WjD"/>
+                        <outlet property="placeholderLabel" destination="est-60-e8R" id="e29-gX-RzM"/>
                         <outlet property="profileImageView" destination="TDh-IH-Ayk" id="ias-7x-rON"/>
                         <outlet property="tweetTextView" destination="gtL-yi-jQA" id="tBG-ef-eBD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tIR-JG-WPp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2876" y="2062"/>
+            <point key="canvasLocation" x="2874.375" y="2061.9718309859154"/>
         </scene>
         <!--Mentions-->
         <scene sceneID="Ofw-pl-VqV">
@@ -778,7 +787,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="jgY-5D-hck"/>
-        <segue reference="TTh-DU-LBS"/>
-        <segue reference="Dxe-W9-usn"/>
+        <segue reference="fou-d7-p4n"/>
+        <segue reference="OkI-Qu-PrD"/>
     </inferredMetricsTieBreakers>
 </document>
