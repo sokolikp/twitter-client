@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
+class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate, TweetCellDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -67,6 +67,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         
+        cell.delegate = self
         cell.tweet = tweets[indexPath.row]
         return cell
     }
@@ -96,16 +97,22 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "TweetDetailSegue" {
+        if segue.identifier == "DetailsSegue" {
             let detailsViewController = segue.destination as! DetailViewController
             let cell = sender as! TweetCell
             let indexPath = tableView.indexPath(for: cell)
             detailsViewController.tweet = tweets[indexPath!.row]
+        } else if segue.identifier == "ProfileSegue" {
+            let profileViewController = segue.destination as! ProfileViewController
+            let cell = sender as! TweetCell
+            let indexPath = tableView.indexPath(for: cell)
+            profileViewController.user = tweets[indexPath!.row].user
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "DetailsSegue", sender: tableView.cellForRow(at: indexPath))
     }
     
     func initInfiniteScroll() {
@@ -117,6 +124,10 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         var insets = tableView.contentInset
         insets.bottom += InfiniteScrollActivityView.defaultHeight
         tableView.contentInset = insets
+    }
+    
+    func tweetCellDidTapProfileImage(tweetCell: TweetCell) {
+        performSegue(withIdentifier: "ProfileSegue", sender: tweetCell)
     }
     
     @objc func refreshControlAction(_ refreshControl: UIRefreshControl) {

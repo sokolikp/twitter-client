@@ -8,6 +8,7 @@
 
 import UIKit
 var _tweets: [Tweet]?
+var _userTweets: [Tweet]?
 
 class Tweet: NSObject {
     var id: Int?
@@ -77,6 +78,12 @@ class Tweet: NSObject {
         }
     }
     
+    class var userTweets: [Tweet]? {
+        get {
+            return _userTweets ?? [Tweet]()
+        }
+    }
+    
     class func tweetsWithArray(array: [NSDictionary]) -> [Tweet] {
         // reset internal tweets array
         var tweetArray: [Tweet] = [Tweet]()
@@ -89,10 +96,11 @@ class Tweet: NSObject {
     }
     
     class func setTweets(array: [Tweet]) -> () {
-        // reset internal tweets array
-        _tweets = [Tweet]()
-        
         _tweets = array
+    }
+    
+    class func setUserTweets(array: [Tweet]) -> () {
+        _userTweets = array
     }
     
     class func appendTweets(array: [Tweet]) -> () {

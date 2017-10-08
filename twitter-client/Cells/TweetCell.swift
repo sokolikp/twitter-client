@@ -9,6 +9,10 @@
 import UIKit
 import NSDateMinimalTimeAgo
 
+@objc protocol TweetCellDelegate {
+    @objc optional func tweetCellDidTapProfileImage(tweetCell: TweetCell)
+}
+
 class TweetCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var handleLabel: UILabel!
@@ -16,6 +20,8 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var timestampLabel: UILabel!
     @IBOutlet weak var verifiedImageView: UIImageView!
+    
+    weak var delegate: TweetCellDelegate?
     
     var tweet: Tweet! {
         didSet {
@@ -33,16 +39,17 @@ class TweetCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         
         profileImageView.layer.cornerRadius = profileImageView.frame.size.width / 2
         profileImageView.clipsToBounds  = true
+        
+        let profileTapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(handleTap))
+        profileTapGestureRecognizer.delegate = self
+        profileImageView.isUserInteractionEnabled = true
+        profileImageView.addGestureRecognizer(profileTapGestureRecognizer)
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        delegate?.tweetCellDidTapProfileImage?(tweetCell: self)
     }
-
 }

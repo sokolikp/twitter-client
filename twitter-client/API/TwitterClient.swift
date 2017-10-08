@@ -40,25 +40,6 @@ class TwitterClient: BDBOAuth1SessionManager {
         print("logged out")
     }
     
-    // loadMore is for pagination
-    func homeTimeline(loadMore: Bool, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-        var params: [String: Any]?
-        if loadMore {
-            params = ["max_id": Tweet.tweets?.last?.id as Any]
-        }
-        self.get("1.1/statuses/home_timeline.json", parameters: params ?? nil, progress: nil, success: { (task: URLSessionDataTask?, response: Any?) in
-            let tweets = Tweet.tweetsWithArray(array: response as! [NSDictionary])
-            if !loadMore {
-                Tweet.setTweets(array: tweets)
-            } else {
-                Tweet.appendTweets(array: tweets)
-            }
-            success(tweets)
-        }) { (task: URLSessionDataTask?, error: Error) in
-            failure(error)
-        }
-    }
-    
     func openUrl(url: URL) {
         fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: BDBOAuth1Credential(queryString: url.query), success: { (accessToken: BDBOAuth1Credential?) in
             self.requestSerializer.saveAccessToken(accessToken)
@@ -81,6 +62,51 @@ class TwitterClient: BDBOAuth1SessionManager {
         }, failure: { (task: URLSessionDataTask?, error: Error) in
             failure(error)
         })
+    }
+    
+    // loadMore is for pagination
+    func homeTimeline(loadMore: Bool, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+        var params: [String: Any]?
+        if loadMore {
+            params = ["max_id": Tweet.tweets?.last?.id as Any]
+        }
+        self.get("1.1/statuses/home_timeline.json", parameters: params ?? nil, progress: nil, success: { (task: URLSessionDataTask?, response: Any?) in
+            let tweets = Tweet.tweetsWithArray(array: response as! [NSDictionary])
+            if !loadMore {
+                Tweet.setTweets(array: tweets)
+            } else {
+                Tweet.appendTweets(array: tweets)
+            }
+            success(tweets)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
+    }
+    
+    // current user's @mentions
+    func mentions(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+//        var params: [String: Any]?
+//        if loadMore {
+//            params = ["max_id": Tweet.tweets?.last?.id as Any]
+//        }
+        self.get("1.1/statuses/mentions_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask?, response: Any?) in
+            let tweets = Tweet.tweetsWithArray(array: response as! [NSDictionary])
+            success(tweets)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
+    }
+    
+    // specific user's timeline
+    func userTimeline(userId: Int, success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
+        let params = ["user_id": userId]
+        self.get("1.1/statuses/user_timeline.json", parameters: params, progress: nil, success: { (task: URLSessionDataTask?, response: Any?) in
+            let tweets = Tweet.tweetsWithArray(array: response as! [NSDictionary])
+            Tweet.setUserTweets(array: tweets)
+            success(tweets)
+        }) { (task: URLSessionDataTask?, error: Error) in
+            failure(error)
+        }
     }
     
     func postTweet(message: String, replyId: Int?, success: @escaping (Tweet) -> (), failure: @escaping (Error) -> ()) {
