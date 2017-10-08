@@ -22,22 +22,48 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     var tweets: [Tweet]!
     var user: User!
     
+    // MARK: lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.dataSource = self
         tableView.delegate = self
         
+        // init tweet cell nib
         let cellNib = UINib(nibName: "TweetCell", bundle: nil)
         tableView.register(cellNib, forCellReuseIdentifier: "TweetCell")
         
+        // default current user to logged in user
         if user == nil {
             user = User.currentUser
         }
         
-        self.title = user?.name
+        // set up top profile view
+        initProfileView()
         
-        // TODO: handle default case (no background image)
+        // fetch personal tweets
+        TwitterClient.sharedInstance.userTimeline(userId: (user?.id)!, success: { (tweets: [Tweet]) in
+            self.tweets = tweets
+            self.tableView.reloadData()
+        }) { (error: Error) in
+            print("Error! \(error.localizedDescription)")
+        }
+    }
+
+    // MARK: delegate handlers
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
+        cell.tweet = tweets[indexPath.row]
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tweets?.count ?? 0
+    }
+    
+    // MARK: helper functions
+    func initProfileView () {
+        self.title = user?.name
         if user?.backgroundUrl != nil {
             backgroundImageView.setImageWith(user.backgroundUrl!)
         }
@@ -51,27 +77,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         userNameLabel.text = user.name
         userHandleLabel.text = "@\(user.handle ?? "")"
-        tweetCountLabel.text = String(describing: user.tweetCount!)
-        followingCountLabel.text = String(describing: user.followingCount!)
-        followersCountLabel.text = String(describing: user.followerCount!)
-        
-        // fetch personal tweets
-        TwitterClient.sharedInstance.userTimeline(userId: (user?.id)!, success: { (tweets: [Tweet]) in
-            self.tweets = tweets
-            self.tableView.reloadData()
-        }) { (error: Error) in
-            print("Error! \(error.localizedDescription)")
-        }
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
-        cell.tweet = tweets[indexPath.row]
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tweets?.count ?? 0
+        tweetCountLabel.text = user.tweetCount!.formatPrettyString()
+        followingCountLabel.text = user.followingCount!.formatPrettyString()
+        followersCountLabel.text = user.followerCount!.formatPrettyString()
     }
 
 }

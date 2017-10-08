@@ -19,6 +19,7 @@ class ComposeTweetViewController: UIViewController, UITextViewDelegate {
     let placeholder: String = "What's on your mind?"
     let MAX_CHARS: Int = 140
     
+    // MARK: lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,12 +44,8 @@ class ComposeTweetViewController: UIViewController, UITextViewDelegate {
             setPristine()
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
+    // MARK: delegate handlers
     func textViewDidBeginEditing(_ textView: UITextView) {
         if pristine {
             textView.text = nil
@@ -73,13 +70,15 @@ class ComposeTweetViewController: UIViewController, UITextViewDelegate {
         let numberOfChars = newText.characters.count
         return numberOfChars <= MAX_CHARS
     }
-    
+   
+    // MARK: helper functions
     func setPristine() {
         pristine = true
         tweetTextView.text = placeholder
         tweetTextView.textColor = UIColor.lightGray
     }
     
+    // MARK: action method outlets
     @IBAction func onClickTweet(_ sender: Any) {
         // don't tweet placeholder message 
         if pristine {

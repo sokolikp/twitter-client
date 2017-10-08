@@ -20,7 +20,7 @@ class Tweet: NSObject {
     var favoritesCount: Int = 0
     var retweeted: Bool = false
     var liked: Bool = false
-    var retweet: Tweet? // parent tweet id
+    var retweet: Tweet? // parent tweet
     
     init(dictionary: NSDictionary) {
         id = dictionary["id"] as? Int
@@ -71,13 +71,14 @@ class Tweet: NSObject {
         return image
     }
     
-    // getter-only closure; no ability to set
+    // getter-only
     class var tweets: [Tweet]? {
         get {
             return _tweets ?? [Tweet]()
         }
     }
     
+    // getter-only
     class var userTweets: [Tweet]? {
         get {
             return _userTweets ?? [Tweet]()
@@ -85,7 +86,6 @@ class Tweet: NSObject {
     }
     
     class func tweetsWithArray(array: [NSDictionary]) -> [Tweet] {
-        // reset internal tweets array
         var tweetArray: [Tweet] = [Tweet]()
         
         for dictionary in array {

@@ -17,18 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         if User.currentUser != nil {
-            // go to logged in screen
-            print("user detected!")
+            // instantiate hamburgerVC and go directly there. HamburgerVC sets up menuVC independently
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let hamburgerViewController = storyboard.instantiateViewController(withIdentifier: "HamburgerViewController") as! HamburgerViewController
-            let menuViewController = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
-            
-            menuViewController.hamburgerViewController = hamburgerViewController
-            hamburgerViewController.menuViewController = menuViewController
-
             window?.rootViewController = hamburgerViewController
-        } else {
-            print("no user saved")
         }
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil, queue: OperationQueue.main) { (notification: Notification) in

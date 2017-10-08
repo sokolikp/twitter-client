@@ -27,6 +27,7 @@ class DetailViewController: UIViewController {
     
     var tweet: Tweet!
     
+    // MARK: lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,10 +37,7 @@ class DetailViewController: UIViewController {
         reloadView()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
+    // MARK: action outlet methods
     @IBAction func onCLickRetweet(_ sender: Any) {
         if (!tweet.retweeted) {
             TwitterClient.sharedInstance.retweet(id: tweet.id!, success: { (originalTweet: Tweet, retweet: Tweet) in
@@ -94,6 +92,7 @@ class DetailViewController: UIViewController {
         }
     }
     
+    // MARK: helper functions
     // initialize outlet data
     func reloadView () {
         // set labels

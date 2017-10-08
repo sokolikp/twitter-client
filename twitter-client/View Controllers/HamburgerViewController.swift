@@ -17,13 +17,26 @@ class HamburgerViewController: UIViewController {
     var menuViewController: UIViewController! {
         didSet {
             view.layoutIfNeeded()
+            menuViewController.willMove(toParentViewController: self)
             menuView.addSubview(menuViewController.view)
+            menuViewController.didMove(toParentViewController: self)
         }
     }
+    
+    // handle view switching from menu view options
     var contentViewController: UIViewController! {
-        didSet {
+        didSet(oldViewController) {
             view.layoutIfNeeded()
+            
+            // book-keeping for viewController lifecycle methods
+            if oldViewController != nil {
+                oldViewController.willMove(toParentViewController: nil)
+                oldViewController.removeFromParentViewController()
+                oldViewController.didMove(toParentViewController: nil)
+            }
+            contentViewController.willMove(toParentViewController: self)
             contentView.addSubview(contentViewController.view)
+            contentViewController.didMove(toParentViewController: self)
             UIView.animate(withDuration: 0.3) {
                 self.leftMarginConstraint.constant = 0
                 self.view.layoutIfNeeded()
@@ -31,10 +44,18 @@ class HamburgerViewController: UIViewController {
         }
     }
     
+    // MARK: lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // set up menuViewController
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let menuViewController = storyboard.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        menuViewController.hamburgerViewController = self
+        self.menuViewController = menuViewController
     }
     
+    // MARK: action outlets
     @IBAction func onPanGesture(_ sender: UIPanGestureRecognizer) {
         let translation = sender.translation(in: view)
         let velocity = sender.velocity(in: view)

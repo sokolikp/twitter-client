@@ -17,6 +17,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var isMoreDataLoading: Bool = false
     var loadingMoreView: InfiniteScrollActivityView?
     
+    // MARK: lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,11 +56,22 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             tableView.reloadData()
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DetailsSegue" {
+            let detailsViewController = segue.destination as! DetailViewController
+            let cell = sender as! TweetCell
+            let indexPath = tableView.indexPath(for: cell)
+            detailsViewController.tweet = tweets[indexPath!.row]
+        } else if segue.identifier == "ProfileSegue" {
+            let profileViewController = segue.destination as! ProfileViewController
+            let cell = sender as! TweetCell
+            let indexPath = tableView.indexPath(for: cell)
+            profileViewController.user = tweets[indexPath!.row].user
+        }
     }
     
+    // MARK: delegate handlers
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets?.count ?? 0
     }
@@ -70,6 +82,11 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.delegate = self
         cell.tweet = tweets[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "DetailsSegue", sender: tableView.cellForRow(at: indexPath))
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -96,36 +113,6 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "DetailsSegue" {
-            let detailsViewController = segue.destination as! DetailViewController
-            let cell = sender as! TweetCell
-            let indexPath = tableView.indexPath(for: cell)
-            detailsViewController.tweet = tweets[indexPath!.row]
-        } else if segue.identifier == "ProfileSegue" {
-            let profileViewController = segue.destination as! ProfileViewController
-            let cell = sender as! TweetCell
-            let indexPath = tableView.indexPath(for: cell)
-            profileViewController.user = tweets[indexPath!.row].user
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        performSegue(withIdentifier: "DetailsSegue", sender: tableView.cellForRow(at: indexPath))
-    }
-    
-    func initInfiniteScroll() {
-        let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
-        loadingMoreView = InfiniteScrollActivityView(frame: frame)
-        loadingMoreView!.isHidden = true
-        tableView.tableFooterView = loadingMoreView
-        
-        var insets = tableView.contentInset
-        insets.bottom += InfiniteScrollActivityView.defaultHeight
-        tableView.contentInset = insets
-    }
-    
     func tweetCellDidTapProfileImage(tweetCell: TweetCell) {
         performSegue(withIdentifier: "ProfileSegue", sender: tweetCell)
     }
@@ -140,6 +127,19 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    // MARK: helper functions
+    func initInfiniteScroll() {
+        let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+        loadingMoreView = InfiniteScrollActivityView(frame: frame)
+        loadingMoreView!.isHidden = true
+        tableView.tableFooterView = loadingMoreView
+        
+        var insets = tableView.contentInset
+        insets.bottom += InfiniteScrollActivityView.defaultHeight
+        tableView.contentInset = insets
+    }
+
+    // MARK: action outlet methods
     @IBAction func onLogout(_ sender: Any) {
         TwitterClient.sharedInstance.logout()
     }

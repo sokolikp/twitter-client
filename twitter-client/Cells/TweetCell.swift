@@ -37,6 +37,7 @@ class TweetCell: UITableViewCell {
         }
     }
     
+    // MARK: lifecycle methods
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -49,6 +50,7 @@ class TweetCell: UITableViewCell {
         profileImageView.addGestureRecognizer(profileTapGestureRecognizer)
     }
     
+    // MARK: delegate invocations
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         delegate?.tweetCellDidTapProfileImage?(tweetCell: self)
     }

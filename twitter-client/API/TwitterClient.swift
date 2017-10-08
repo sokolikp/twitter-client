@@ -37,7 +37,6 @@ class TwitterClient: BDBOAuth1SessionManager {
         User.currentUser = nil
         deauthorize()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil)
-        print("logged out")
     }
     
     func openUrl(url: URL) {
@@ -85,10 +84,6 @@ class TwitterClient: BDBOAuth1SessionManager {
     
     // current user's @mentions
     func mentions(success: @escaping ([Tweet]) -> (), failure: @escaping (Error) -> ()) {
-//        var params: [String: Any]?
-//        if loadMore {
-//            params = ["max_id": Tweet.tweets?.last?.id as Any]
-//        }
         self.get("1.1/statuses/mentions_timeline.json", parameters: nil, progress: nil, success: { (task: URLSessionDataTask?, response: Any?) in
             let tweets = Tweet.tweetsWithArray(array: response as! [NSDictionary])
             success(tweets)

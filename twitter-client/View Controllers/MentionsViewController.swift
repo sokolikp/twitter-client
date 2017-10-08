@@ -14,6 +14,7 @@ class MentionsViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var tweets: [Tweet]!
     
+    // MARK: lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,7 +33,21 @@ class MentionsViewController: UIViewController, UITableViewDataSource, UITableVi
         }
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ProfileSegue" {
+            let profileViewController = segue.destination as! ProfileViewController
+            let cell = sender as! TweetCell
+            let indexPath = tableView.indexPath(for: cell)
+            profileViewController.user = tweets[indexPath!.row].user
+        } else if segue.identifier == "DetailsSegue" {
+            let detailsViewController = segue.destination as! DetailViewController
+            let cell = sender as! TweetCell
+            let indexPath = tableView.indexPath(for: cell)
+            detailsViewController.tweet = tweets[indexPath!.row]
+        }
+    }
+    
+    // MARK: delegate handlers
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
         
@@ -51,22 +66,7 @@ class MentionsViewController: UIViewController, UITableViewDataSource, UITableVi
         performSegue(withIdentifier: "DetailsSegue", sender: tableView.cellForRow(at: indexPath))
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ProfileSegue" {
-            let profileViewController = segue.destination as! ProfileViewController
-            let cell = sender as! TweetCell
-            let indexPath = tableView.indexPath(for: cell)
-            profileViewController.user = tweets[indexPath!.row].user
-        } else if segue.identifier == "DetailsSegue" {
-            let detailsViewController = segue.destination as! DetailViewController
-            let cell = sender as! TweetCell
-            let indexPath = tableView.indexPath(for: cell)
-            detailsViewController.tweet = tweets[indexPath!.row]
-        }
-    }
-    
     func tweetCellDidTapProfileImage(tweetCell: TweetCell) {
         performSegue(withIdentifier: "ProfileSegue", sender: tweetCell)
     }
-
 }
