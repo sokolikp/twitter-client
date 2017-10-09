@@ -1,6 +1,6 @@
 # Project 4 - *Twitter Redux*
 
-Time spent: **10** hours spent in total
+Time spent: **17** hours spent in total
 
 ## User Stories
 
@@ -31,19 +31,25 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [X] Auto-adjusting constraints on the details page depending on whether the delete button is displayed
+- [X] Lots of code cleanup!
+- [X] Global nav styles
+- [X] Reusable xib tweet cell
+- [X] Better UI for creating tweets (updated placeholder logic)
+- [X] Improved hamburger/menu view controller invocation pattern (no dependency on order in app delegate)
+- [X] Disallow dragging of content view outside of display view
+- [X] Better login screen UI
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-  1.
-  2.
-
+  1. Anyone find any better patterns for invoking haburger and menu view controllers?
+  2. How did you prevent the menu view from responding to the drag gesture? It needed to have "user interactin enabled" so that the tableView was clickable, but we didn't want it to drag when touched.
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://preview.ibb.co/ktdXgG/twitter_redux.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
