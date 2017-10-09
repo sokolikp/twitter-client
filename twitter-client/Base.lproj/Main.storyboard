@@ -215,7 +215,7 @@
         <!--Tweet-->
         <scene sceneID="aNW-E5-NOQ">
             <objects>
-                <viewController title="Tweet" id="0zC-hY-vjh" customClass="DetailViewController" customModule="twitter_client" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailsViewController" title="Tweet" id="0zC-hY-vjh" customClass="DetailViewController" customModule="twitter_client" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="B2s-Wn-XdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -306,7 +306,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VQG-h4-KX6">
-                                        <rect key="frame" x="82.5" y="228.5" width="25" height="25"/>
+                                        <rect key="frame" x="49.5" y="228.5" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="N17-N1-mlm"/>
                                             <constraint firstAttribute="height" constant="25" id="ede-Ox-bHb"/>
@@ -317,7 +317,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9IR-uj-yPz">
-                                        <rect key="frame" x="147.5" y="228.5" width="25" height="25"/>
+                                        <rect key="frame" x="114.5" y="228.5" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="25" id="G7O-jV-OWu"/>
                                             <constraint firstAttribute="height" constant="25" id="oBF-8G-j6C"/>
@@ -328,7 +328,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iuf-cZ-W5a">
-                                        <rect key="frame" x="212.5" y="228.5" width="25" height="25"/>
+                                        <rect key="frame" x="179.5" y="228.5" width="25" height="25"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="25" id="Yt0-eo-5Yx"/>
                                             <constraint firstAttribute="width" constant="25" id="yU3-oL-hYi"/>
@@ -346,12 +346,10 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MoQ-gy-Q1F" userLabel="Delete">
-                                        <rect key="frame" x="277.5" y="229" width="25" height="25"/>
+                                        <rect key="frame" x="244.5" y="229" width="25" height="25"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="25" id="8vn-ot-pmZ"/>
                                             <constraint firstAttribute="height" constant="25" id="Hm9-CM-e9s"/>
                                             <constraint firstAttribute="width" constant="25" id="UWB-pJ-0gU"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="n4M-MT-Iqu"/>
                                         </constraints>
                                         <state key="normal" title="Like" image="delete-gray"/>
                                         <connections>
@@ -369,6 +367,7 @@
                                     <constraint firstItem="BaF-WW-0qe" firstAttribute="leading" secondItem="ZQD-3f-Q4o" secondAttribute="trailing" constant="10" id="5pa-QR-uNL"/>
                                     <constraint firstItem="Y9M-bT-2JY" firstAttribute="top" secondItem="WRr-Gl-9rO" secondAttribute="top" constant="20" id="5q7-bR-diV"/>
                                     <constraint firstItem="5us-vK-uos" firstAttribute="top" secondItem="MfW-v3-oUS" secondAttribute="bottom" constant="12" id="8Ph-j1-JJZ"/>
+                                    <constraint firstItem="VQG-h4-KX6" firstAttribute="leading" secondItem="WRr-Gl-9rO" secondAttribute="leading" constant="49.5" id="8aK-xB-dul" userLabel="replyLeftMarginConstraint"/>
                                     <constraint firstItem="BaF-WW-0qe" firstAttribute="bottom" secondItem="8gd-3E-X3P" secondAttribute="bottom" id="9wG-lS-WDS"/>
                                     <constraint firstItem="Y9M-bT-2JY" firstAttribute="leading" secondItem="eVq-c2-wNE" secondAttribute="trailing" constant="8" id="BtA-uf-gpg"/>
                                     <constraint firstItem="eVq-c2-wNE" firstAttribute="leading" secondItem="WRr-Gl-9rO" secondAttribute="leading" constant="12" id="Er0-zI-PJN"/>
@@ -377,15 +376,15 @@
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MfW-v3-oUS" secondAttribute="trailing" constant="12" id="Ho5-pB-KEf"/>
                                     <constraint firstItem="eKh-07-yX0" firstAttribute="leading" secondItem="WRr-Gl-9rO" secondAttribute="leading" constant="12" id="INc-ma-Vx0"/>
                                     <constraint firstAttribute="trailing" secondItem="eKh-07-yX0" secondAttribute="trailing" constant="12" id="PZN-XT-UWl"/>
-                                    <constraint firstItem="MoQ-gy-Q1F" firstAttribute="leading" secondItem="iuf-cZ-W5a" secondAttribute="trailing" constant="40" id="Qi7-Nj-lzs"/>
                                     <constraint firstItem="ZQD-3f-Q4o" firstAttribute="bottom" secondItem="8gd-3E-X3P" secondAttribute="bottom" id="RCg-CQ-pPl"/>
                                     <constraint firstItem="MfW-v3-oUS" firstAttribute="top" secondItem="eVq-c2-wNE" secondAttribute="bottom" constant="12" id="SqY-Yb-kH8"/>
                                     <constraint firstItem="HY6-sT-bPV" firstAttribute="top" secondItem="eKh-07-yX0" secondAttribute="bottom" constant="40" id="T7E-M7-nUE"/>
                                     <constraint firstItem="VQG-h4-KX6" firstAttribute="top" secondItem="eKh-07-yX0" secondAttribute="bottom" constant="8" id="TKo-2L-Gtc"/>
-                                    <constraint firstItem="9IR-uj-yPz" firstAttribute="centerX" secondItem="WRr-Gl-9rO" secondAttribute="centerX" id="UCs-RV-gI2"/>
                                     <constraint firstItem="ZQD-3f-Q4o" firstAttribute="leading" secondItem="8gd-3E-X3P" secondAttribute="trailing" constant="4" id="UPA-Wd-i36"/>
+                                    <constraint firstAttribute="trailing" secondItem="MoQ-gy-Q1F" secondAttribute="trailing" constant="50.5" id="YXO-IS-V8k" userLabel="deleteRightMarginConstraint"/>
                                     <constraint firstItem="eKh-07-yX0" firstAttribute="top" secondItem="yLj-62-BBJ" secondAttribute="bottom" constant="40" id="YqG-WU-H6T"/>
                                     <constraint firstItem="9IR-uj-yPz" firstAttribute="bottom" secondItem="VQG-h4-KX6" secondAttribute="bottom" id="bPP-NV-sCb"/>
+                                    <constraint firstItem="MoQ-gy-Q1F" firstAttribute="leading" secondItem="iuf-cZ-W5a" secondAttribute="trailing" constant="40" id="bfc-Xq-Jhb" userLabel="likeRightMarginConstraint"/>
                                     <constraint firstItem="eVq-c2-wNE" firstAttribute="top" secondItem="WRr-Gl-9rO" secondAttribute="top" constant="12" id="c3n-Zf-h45"/>
                                     <constraint firstItem="Mtm-gf-nPN" firstAttribute="centerY" secondItem="Y9M-bT-2JY" secondAttribute="centerY" id="cLd-Tq-iev"/>
                                     <constraint firstItem="yLj-62-BBJ" firstAttribute="top" secondItem="5us-vK-uos" secondAttribute="bottom" constant="12" id="dj1-Hv-jRy"/>
@@ -393,15 +392,14 @@
                                     <constraint firstItem="8gd-3E-X3P" firstAttribute="top" secondItem="yLj-62-BBJ" secondAttribute="bottom" constant="10" id="fP9-i4-uvh"/>
                                     <constraint firstItem="A6F-E0-NXc" firstAttribute="leading" secondItem="5us-vK-uos" secondAttribute="trailing" constant="5" id="hUA-fO-8Jh"/>
                                     <constraint firstItem="MoQ-gy-Q1F" firstAttribute="bottom" secondItem="iuf-cZ-W5a" secondAttribute="bottom" id="kaC-z7-VYt"/>
-                                    <constraint firstItem="9IR-uj-yPz" firstAttribute="leading" secondItem="VQG-h4-KX6" secondAttribute="trailing" constant="40" id="l9z-En-rVm"/>
                                     <constraint firstItem="Aif-FE-xnW" firstAttribute="top" secondItem="Y9M-bT-2JY" secondAttribute="bottom" constant="1" id="mfL-WH-I3Q"/>
+                                    <constraint firstItem="9IR-uj-yPz" firstAttribute="leading" secondItem="VQG-h4-KX6" secondAttribute="trailing" constant="40" id="n6g-PO-TFA"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Aif-FE-xnW" secondAttribute="trailing" constant="12" id="oFN-n4-4HW"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Mtm-gf-nPN" secondAttribute="trailing" constant="12" id="qQf-Qt-tWG"/>
                                     <constraint firstItem="iuf-cZ-W5a" firstAttribute="bottom" secondItem="VQG-h4-KX6" secondAttribute="bottom" id="qny-ua-1OW"/>
                                     <constraint firstItem="R8a-Lg-svA" firstAttribute="bottom" secondItem="8gd-3E-X3P" secondAttribute="bottom" id="rNF-T4-GTm"/>
                                     <constraint firstAttribute="trailing" secondItem="HY6-sT-bPV" secondAttribute="trailing" constant="12" id="tck-ah-Lyb"/>
                                     <constraint firstItem="A6F-E0-NXc" firstAttribute="bottom" secondItem="5us-vK-uos" secondAttribute="bottom" id="veu-kj-9Ax"/>
-                                    <constraint firstItem="iuf-cZ-W5a" firstAttribute="leading" secondItem="9IR-uj-yPz" secondAttribute="trailing" constant="40" id="yH2-7h-GzP"/>
                                     <constraint firstItem="5us-vK-uos" firstAttribute="leading" secondItem="eVq-c2-wNE" secondAttribute="leading" id="zXB-HD-IUE"/>
                                 </constraints>
                             </view>
@@ -419,13 +417,17 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="deleteButton" destination="MoQ-gy-Q1F" id="Jer-gg-UEQ"/>
+                        <outlet property="deleteRightMarginConstraint" destination="YXO-IS-V8k" id="9Az-w6-0sw"/>
                         <outlet property="handleLabel" destination="Aif-FE-xnW" id="dBm-z2-0nD"/>
                         <outlet property="likeButton" destination="iuf-cZ-W5a" id="xWC-AB-caC"/>
+                        <outlet property="likeRightMarginConstraint" destination="bfc-Xq-Jhb" id="nO4-Q9-4ce"/>
                         <outlet property="likesCountLabel" destination="BaF-WW-0qe" id="MWF-R9-CdG"/>
                         <outlet property="locationLabel" destination="A6F-E0-NXc" id="FvU-ws-pb3"/>
                         <outlet property="nameLabel" destination="Y9M-bT-2JY" id="CzH-40-0g6"/>
                         <outlet property="profileImageView" destination="eVq-c2-wNE" id="evl-rJ-lim"/>
                         <outlet property="replyButton" destination="VQG-h4-KX6" id="EAQ-fp-1EM"/>
+                        <outlet property="replyLeftMarginConstraint" destination="8aK-xB-dul" id="D5r-Ca-YGo"/>
+                        <outlet property="replyRightMarginConstraint" destination="n6g-PO-TFA" id="AJw-oG-ajr"/>
                         <outlet property="retweetButton" destination="9IR-uj-yPz" id="cWW-pf-6Nf"/>
                         <outlet property="retweetsCountLabel" destination="8gd-3E-X3P" id="85H-GQ-C6K"/>
                         <outlet property="timestampLabel" destination="5us-vK-uos" id="RZI-ZF-wXP"/>
@@ -787,7 +789,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="jgY-5D-hck"/>
-        <segue reference="fou-d7-p4n"/>
-        <segue reference="OkI-Qu-PrD"/>
+        <segue reference="2Fs-iX-Z3B"/>
+        <segue reference="Dxe-W9-usn"/>
     </inferredMetricsTieBreakers>
 </document>

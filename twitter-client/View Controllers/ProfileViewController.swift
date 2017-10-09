@@ -61,6 +61,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         return tweets?.count ?? 0
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let detailsViewController = storyboard.instantiateViewController(withIdentifier: "DetailsViewController") as! DetailViewController
+        detailsViewController.tweet = tweets[indexPath.row]
+        navigationController?.pushViewController(detailsViewController, animated: true)
+    }
+    
     // MARK: helper functions
     func initProfileView () {
         self.title = user?.name

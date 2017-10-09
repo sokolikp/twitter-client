@@ -24,6 +24,10 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var tweetView: UIView!
     @IBOutlet weak var verifiedImageView: UIImageView!
     @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var deleteRightMarginConstraint: NSLayoutConstraint!
+    @IBOutlet weak var likeRightMarginConstraint: NSLayoutConstraint!
+    @IBOutlet weak var replyLeftMarginConstraint: NSLayoutConstraint!
+    @IBOutlet weak var replyRightMarginConstraint: NSLayoutConstraint!
     
     var tweet: Tweet!
     
@@ -103,8 +107,32 @@ class DetailViewController: UIViewController {
         retweetsCountLabel.text = String(tweet.retweetCount)
         likesCountLabel.text = String(tweet.favoritesCount)
         verifiedImageView.isHidden = !(tweet.user?.verified)!
-        if (tweet.user?.id != User.currentUser?.id) {
+        
+        //set up action button alignment
+        let frameWidth = view.frame.size.width
+        var totalButtonWidth: CGFloat!
+        var buttonCount: CGFloat!
+        if tweet.user?.id != User.currentUser?.id {
             deleteButton.isHidden = true
+            buttonCount = 3
+            totalButtonWidth = replyButton.frame.size.width + retweetButton.frame.size.width + likeButton.frame.size.width
+            
+            let spaceBetweenButtons = (frameWidth - totalButtonWidth) / (buttonCount + 1)
+            replyLeftMarginConstraint.constant = spaceBetweenButtons
+            replyRightMarginConstraint.constant = spaceBetweenButtons
+            likeRightMarginConstraint.isActive = false
+            let newLikeRightMarginConstraint = NSLayoutConstraint(item: view, attribute: .trailing, relatedBy: .equal, toItem: likeButton, attribute: .trailing, multiplier: 1, constant: spaceBetweenButtons)
+            
+            newLikeRightMarginConstraint.isActive = true
+        } else {
+            buttonCount = 4
+            totalButtonWidth = replyButton.frame.size.width + retweetButton.frame.size.width + likeButton.frame.size.width + deleteButton.frame.size.width
+            
+            let spaceBetweenButtons = (frameWidth - totalButtonWidth) / (buttonCount + 1)
+            replyLeftMarginConstraint.constant = spaceBetweenButtons
+            replyRightMarginConstraint.constant = spaceBetweenButtons
+            likeRightMarginConstraint.constant = spaceBetweenButtons
+            deleteRightMarginConstraint.constant = spaceBetweenButtons
         }
         
         // set images

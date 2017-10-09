@@ -63,7 +63,7 @@ class HamburgerViewController: UIViewController {
         if sender.state == .began {
             originalLeftMargin = leftMarginConstraint.constant
         } else if sender.state == .changed {
-            if originalLeftMargin == 0 && velocity.x > 0 || originalLeftMargin != 0 && velocity.x < 0 {
+            if originalLeftMargin + translation.x <= self.view.frame.size.width && originalLeftMargin + translation.x >= 0 {
                 leftMarginConstraint.constant = originalLeftMargin + translation.x
             }
         } else if sender.state == .ended {

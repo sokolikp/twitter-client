@@ -54,7 +54,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // set row heights to take up entire screen height
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return view.frame.size.height / CGFloat(viewControllers.count) - 1
+        return (view.frame.size.height / CGFloat(viewControllers.count)) - 0.5
     }
     
     // MARK: helper functions
