@@ -49,7 +49,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://preview.ibb.co/ktdXgG/twitter_redux.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://image.ibb.co/c2ynFb/twitter_redux.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
